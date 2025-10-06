@@ -39,4 +39,9 @@ Abre una terminal en la carpeta del proyecto backend.
 
 Ejecuta el siguiente comando:
 
-dotnet run
+bash: dotnet run
+
+Por defecto, el servidor se iniciará en:
+
+https://localhost:7068
+http://localhost:5068
