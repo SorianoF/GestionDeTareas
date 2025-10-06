@@ -45,3 +45,17 @@ Por defecto, el servidor se iniciará en:
 
 https://localhost:7068
 http://localhost:5068
+
+Frontend (Angular)
+
+Abre otra terminal en la carpeta gestion-tareas-frontend.
+
+Instala las dependencias:
+
+bash: npm install 
+
+inicia el servidor de desarrollo: 
+
+bash: ng serve -o
+
+El frontend se ejecutara en http://localhost:4200
