@@ -18,6 +18,7 @@ Visual Studio Code
 Entity Framework Core CLI
 
 Frontend
+
 Node.js (v18 o superior)
 
 Angular CLI 
