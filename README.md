@@ -7,6 +7,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instaladas las siguientes her
 
 Backend
 .NET SDK 8.0 o superior
+
 SQL Server
 Visual Studio 2022
 Visual Studio Code
