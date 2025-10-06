@@ -1,0 +1,14 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 18px;
+}
+.table td {
+  vertical-align: middle;
+}
+.badge {
+  font-size: 0.9rem;
+}
+.modal .modal-dialog {
+  max-width: 720px;
+}

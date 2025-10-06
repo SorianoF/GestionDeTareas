@@ -1,0 +1,47 @@
+<div class="card p-3 shadow-sm">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">{{ tarea ? 'Editar tarea' : 'Crear tarea' }}</h5>
+    <button class="btn btn-sm btn-outline-secondary" type="button" (click)="cancelar()">Cerrar</button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="mb-2">
+      <label class="form-label">Título</label>
+      <input class="form-control" formControlName="titulo" />
+      <div *ngIf="f['titulo']?.touched && f['titulo']?.invalid" class="text-danger small">
+        <div *ngIf="f['titulo']?.errors?.['required']">El título es obligatorio.</div>
+        <div *ngIf="f['titulo']?.errors?.['maxlength']">Máximo 200 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label class="form-label">Descripción</label>
+      <textarea rows="3" class="form-control" formControlName="descripcion"></textarea>
+      <div *ngIf="f['descripcion']?.touched && f['descripcion']?.invalid" class="text-danger small">
+        <div *ngIf="f['descripcion']?.errors?.['maxlength']">Máximo 2000 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="row g-2 mb-2">
+      <div class="col">
+        <label class="form-label">Fecha Límite</label>
+        <input type="date" class="form-control" formControlName="fechaLimite" />
+      </div>
+      <div class="col">
+        <label class="form-label">Prioridad</label>
+        <select class="form-select" formControlName="prioridad">
+          <option *ngFor="let p of prioridades" [value]="p.value">{{ p.text }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" type="submit" [disabled]="cargando">
+        {{ cargando ? 'Guardando...' : (tarea ? 'Actualizar' : 'Crear') }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()" [disabled]="cargando">Cancelar</button>
+    </div>
+  </form>
+</div>

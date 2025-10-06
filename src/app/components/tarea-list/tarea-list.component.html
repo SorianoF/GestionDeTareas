@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de Tareas</h2>
+    <button class="btn btn-success" (click)="mostrarCrear()">+ Nueva tarea</button>
+  </div>
+
+  <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="mb-3 d-flex gap-2">
+    <input
+      class="form-control"
+      placeholder="Buscar por título o descripción..."
+      [(ngModel)]="filtro"
+      (input)="onSearchChange()"
+    />
+    <button class="btn btn-outline-primary" (click)="cambiarOrden()">
+      Orden: {{ orderAsc ? 'A-Z' : 'Z-A' }}
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="text-center my-3">
+    <div class="spinner-border" role="status"></div>
+  </div>
+
+  <table *ngIf="!cargando && tareas.length" class="table table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Prioridad</th>
+        <th>Fecha Límite</th>
+        <th>Estado</th>
+        <th style="width:220px">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of tareas">
+        <td>{{ t.titulo }}</td>
+        <td>{{ t.descripcion }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-danger': t.prioridad===2,
+              'bg-warning text-dark': t.prioridad===1,
+              'bg-secondary': t.prioridad===0
+            }"
+          >
+            {{ prioridadTexto(t.prioridad) }}
+          </span>
+        </td>
+        <td>{{ t.fechaLimite ? (t.fechaLimite | date: 'shortDate') : '-' }}</td>
+        <td><span [class.text-success]="t.estado===1">{{ estadoTexto(t.estado) }}</span></td>
+        <td>
+          <button class="btn btn-sm btn-primary me-2" (click)="mostrarEditar(t)">Editar</button> 
+          <button class="btn btn-sm btn-success me-2" (click)="marcarCompletada(t)" [disabled]="t.estado===1">
+            Completada
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="eliminar(t.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!cargando && !tareas.length" class="text-muted">No hay tareas que coincidan.</div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div>Mostrando página {{ page }} • Total: {{ totalCount }}</div>
+    <div>
+      <button class="btn btn-outline-secondary me-2" (click)="paginaAnterior()" [disabled]="page <= 1">Anterior</button>
+      <button class="btn btn-outline-secondary" (click)="paginaSiguiente()" [disabled]="page * pageSize >= totalCount">Siguiente</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade show" [class.d-block]="modalVisible" tabindex="-1" style="background: rgba(0,0,0,0.3);" *ngIf="modalVisible">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ editarTarea ? 'Editar tarea' : 'Nueva tarea' }}</h5>
+          <button type="button" class="btn-close" (click)="modalVisible=false"></button>
+        </div>
+        <div class="modal-body">
+          <app-tarea-form [tarea]="editarTarea" (guardado)="onGuardado($event)"></app-tarea-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

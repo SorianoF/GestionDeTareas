@@ -1,0 +1,11 @@
+.card {
+  padding: 18px;
+}
+.form-label {
+  font-weight: 600;
+  color: #495057;
+}
+.d-flex.gap-2 > .btn {
+  min-width: 110px;
+}
+ 
