@@ -19,7 +19,9 @@ Entity Framework Core CLI
 
 Frontend
 Node.js (v18 o superior)
+
 Angular CLI 
+
 bash: npm install -g @angular/cli
 
 ## Configuración de la Base de Datos
