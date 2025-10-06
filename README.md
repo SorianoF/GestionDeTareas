@@ -28,3 +28,6 @@ bash: npm install -g @angular/cli
 ## Configuración de la Base de Datos
 En el archivo appsettings.json del backend, asegúrate de tener configurada la conexión a tu base de datos SQL Server:
 
+"ConnectionStrings": {
+  "DefaultConnection": "Server=DESKTOP-6LLQQJ6;Database=GestionTareasDb;Trusted_Connection=True;TrustServerCertificate=True;"
+}
